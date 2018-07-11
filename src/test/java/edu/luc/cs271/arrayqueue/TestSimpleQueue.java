@@ -89,6 +89,7 @@ public class TestSimpleQueue {
     assertEquals(value4, fixture.poll());
     assertEquals(value5, fixture.poll());
     assertTrue(fixture.isEmpty());
+    System.out.println(fixture.poll());
   }
 
   @Test

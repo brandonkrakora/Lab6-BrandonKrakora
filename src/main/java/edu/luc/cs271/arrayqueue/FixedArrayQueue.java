@@ -16,39 +16,58 @@ public class FixedArrayQueue<E> implements SimpleQueue<E> {
 
   private final E[] data;
 
-  // TODO why do we need an explicit constructor?
+  // Completed why do we need an explicit constructor?
 
   @SuppressWarnings("unchecked")
-  public FixedArrayQueue(final int capacity) {
+  public FixedArrayQueue(final int capacity) { //10
     this.capacity = capacity;
     this.data = (E[]) new Object[capacity];
     this.size = 0;
     this.front = 0;
-    this.rear = capacity - 1;
+    this.rear = -1;
   }
 
   @Override
   public boolean offer(final E obj) {
-    // TODO
-    return false;
+    if (rear == capacity - 1) {
+      rear = -1;
+    }
+    if ((size != capacity)) {
+      rear++;
+      this.data[rear] = obj;
+      size++;
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   @Override
   public E peek() {
-    // TODO
-    return null;
+    if (isEmpty())
+      return null;
+    else
+      return data[front];
   }
 
   @Override
   public E poll() {
-    // TODO
-    return null;
+    if (front == capacity) {
+      front = 0;
+    }
+    E temp = data[front];
+    front++;
+    size--;
+    return temp;
   }
 
   @Override
   public boolean isEmpty() {
-    // TODO
-    return true;
+    if (size() == 0)
+      return true;
+    else
+      return false;
   }
 
   @Override
@@ -58,7 +77,14 @@ public class FixedArrayQueue<E> implements SimpleQueue<E> {
 
   @Override
   public List<E> asList() {
-    // TODO implement using an ArrayList preallocated with the right size
-    return Arrays.asList();
+    // Completed implement using an ArrayList preallocated with the right size
+    List<E> arrayQueue = new ArrayList<>();
+    int counter =0;
+    while (!isEmpty()) {
+      arrayQueue.add(poll());
+      counter++;
+    }
+    this.size = counter;
+    return arrayQueue;
   }
 }
